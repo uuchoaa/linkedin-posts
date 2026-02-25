@@ -11,5 +11,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "posts#index"
-  resources :posts
+  resources :posts do
+    member do
+      get :write
+      patch :write, to: "posts#update_body"
+    end
+  end
 end
