@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit update destroy write update_body]
+  before_action :set_post, only: %i[show edit update destroy write update_body generate_body]
 
   def index
     @posts = Post.all
@@ -50,6 +50,15 @@ class PostsController < ApplicationController
       redirect_to @post, notice: "Post body was successfully updated."
     else
       render :write, status: :unprocessable_entity
+    end
+  end
+
+  def generate_body
+    body = PostBodyGenerator.new(@post).call
+    if body
+      render json: { body: body }
+    else
+      render json: { error: "Failed to generate body" }, status: :unprocessable_entity
     end
   end
 

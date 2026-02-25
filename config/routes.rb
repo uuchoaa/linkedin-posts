@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     member do
       get :write
       patch :write, to: "posts#update_body"
+      post :generate_body
     end
   end
 end
