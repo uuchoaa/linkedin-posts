@@ -1,35 +1,39 @@
 # frozen_string_literal: true
 
 class Cuy::Table < Cuy::Base
-  def view_template(&block)
+  def initialize(rows)
+    @rows = rows
+    @columns = []
+  end
+
+  def view_template(&)
+    vanish(&)
+
     div(class: "overflow-x-auto rounded-lg border border-gray-200") do
-      table(class: "min-w-full divide-y divide-gray-200", &block)
+      table(class: "min-w-full divide-y divide-gray-200") do
+        thead(class: "bg-gray-50") do
+          tr do
+            @columns.each do |col|
+              th(class: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase") { col[:header] }
+            end
+          end
+        end
+
+        tbody(class: "bg-white divide-y divide-gray-200") do
+          @rows.each do |row|
+            tr do
+              @columns.each do |col|
+                td(class: col[:classes]) { col[:content].call(row) }
+              end
+            end
+          end
+        end
+      end
     end
   end
 
-  def with_header(&block)
-    thead(class: "bg-gray-50") do
-      tr(&block)
-    end
-  end
-
-  def with_body(&block)
-    tbody(class: "bg-white divide-y divide-gray-200", &block)
-  end
-
-  def col_header(text)
-    th(class: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase") { text }
-  end
-
-  def col_primary(text = nil, &block)
-    td(class: "px-6 py-4 text-sm text-gray-900") { block ? yield : text }
-  end
-
-  def col(text = nil, &block)
-    td(class: "px-6 py-4 text-sm text-gray-600") { block ? yield : text }
-  end
-
-  def col_actions(&block)
-    td(class: "px-6 py-4 text-sm text-right space-x-2", &block)
+  def column(header, classes: "px-6 py-4 text-sm text-gray-600", &content)
+    @columns << { header:, classes:, content: }
+    nil
   end
 end

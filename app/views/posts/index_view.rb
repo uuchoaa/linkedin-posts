@@ -40,34 +40,17 @@ class Views::Posts::IndexView < Views::Base
   end
 
   def posts_table
-    render Cuy::Table.new do |t|
-      t.with_header do
-        t.col_header "Title"
-        t.col_header "Category"
-        t.col_header "Status"
-        t.col_header "Skill Level"
-        t.col_header "Created"
-        t.col_header "Actions"
-      end
-
-      t.with_body do
-        @posts.each do |post|
-          tr do
-            t.col_primary post.title
-            t.col post.category&.humanize
-            t.col do
-              render Cuy::Badge.new(variant: Cuy::Badge.variant_for_status(post.status)) { post.status&.humanize }
-            end
-            t.col post.skill_level
-            t.col post.created_at.strftime("%Y-%m-%d")
-            t.col_actions do
-              link_to "Show", post, class: "text-blue-600 hover:underline"
-              link_to "Write", write_post_path(post), class: "text-blue-600 hover:underline"
-              link_to "Edit", edit_post_path(post), class: "text-blue-600 hover:underline"
-              button_to "Delete", post, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-red-600 hover:underline inline"
-            end
-          end
-        end
+    render Cuy::Table.new(@posts) do |t|
+      t.column("Title", classes: "px-6 py-4 text-sm text-gray-900", &:title)
+      t.column("Category") { |post| post.category&.humanize }
+      t.column("Status") { |post| render Cuy::Badge.new(variant: Cuy::Badge.variant_for_status(post.status)) { post.status&.humanize } }
+      t.column("Skill Level", &:skill_level)
+      t.column("Created") { |post| post.created_at.strftime("%Y-%m-%d") }
+      t.column("Actions", classes: "px-6 py-4 text-sm text-right space-x-2") do |post|
+        link_to "Show", post, class: "text-blue-600 hover:underline"
+        link_to "Write", write_post_path(post), class: "text-blue-600 hover:underline"
+        link_to "Edit", edit_post_path(post), class: "text-blue-600 hover:underline"
+        button_to "Delete", post, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-red-600 hover:underline inline"
       end
     end
   end
