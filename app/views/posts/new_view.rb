@@ -1,12 +1,7 @@
-class Views::Posts::NewView < Views::Base
-  def initialize(post:)
-    @post = post
-  end
+# frozen_string_literal: true
 
-  def view_template
-    div(class: "w-full max-w-3xl") do
-      render Components::PageHeader.new(title: "New Post")
-      render Components::PostForm.new(post: @post)
-    end
-  end
+class Views::Posts::NewView < Views::Posts::FormView
+  private
+
+  def form_title = "New Post"
 end

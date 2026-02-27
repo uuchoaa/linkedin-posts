@@ -1,31 +1,32 @@
-class Views::Posts::ShowView < Views::Base
+# frozen_string_literal: true
+
+class Views::Posts::ShowView < Views::Posts::Base
   def initialize(post:)
     @post = post
   end
 
-  def view_template
-    div(class: "w-full max-w-3xl") do
-      render Components::PageHeader.new(title: @post.title) do
-        link_to "Write Post", write_post_path(@post), class: "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        link_to "Edit", edit_post_path(@post), class: "rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
-        link_to "Back", posts_path, class: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300"
-      end
+  def page_header
+    render Cuy::PageHeader.new(title: @post.title)
+      .with_action(Cuy::Button.new(variant: :primary, href: write_post_path(@post)) { "Write Post" })
+      .with_action(Cuy::Button.new(variant: :secondary, href: edit_post_path(@post)) { "Edit" })
+      .with_action(Cuy::Button.new(variant: :secondary, href: posts_path) { "Back" })
+  end
 
-      dl(class: "space-y-4") do
-        detail("Category", @post.category&.humanize) if @post.category
-        detail("Status", @post.status&.humanize) if @post.status
-        detail("Skill Level", @post.skill_level) if @post.skill_level.present?
-        detail("Hook", @post.hook) if @post.hook.present?
-        detail("Content Summary", @post.content_summary, multiline: true) if @post.content_summary.present?
-        detail("Senior Insight", @post.senior_insight) if @post.senior_insight.present?
-        detail("CTA", @post.cta) if @post.cta.present?
-        detail("Hashtags", @post.hashtags.join(" ")) if @post.hashtags.any?
+  def main_content
+    dl(class: "space-y-4") do
+      detail("Category", @post.category&.humanize) if @post.category
+      detail("Status", @post.status&.humanize) if @post.status
+      detail("Skill Level", @post.skill_level) if @post.skill_level.present?
+      detail("Hook", @post.hook) if @post.hook.present?
+      detail("Content Summary", @post.content_summary, multiline: true) if @post.content_summary.present?
+      detail("Senior Insight", @post.senior_insight) if @post.senior_insight.present?
+      detail("CTA", @post.cta) if @post.cta.present?
+      detail("Hashtags", @post.hashtags.join(" ")) if @post.hashtags.any?
 
-        if @post.body.present?
-          div do
-            dt(class: "text-sm font-medium text-gray-500") { "Body" }
-            dd(class: "mt-1 text-gray-900 whitespace-pre-wrap") { @post.body }
-          end
+      if @post.body.present?
+        div do
+          dt(class: "text-sm font-medium text-gray-500") { "Body" }
+          dd(class: "mt-1 text-gray-900 whitespace-pre-wrap") { @post.body }
         end
       end
     end
@@ -36,9 +37,7 @@ class Views::Posts::ShowView < Views::Base
   def detail(label, value, multiline: false)
     div do
       dt(class: "text-sm font-medium text-gray-500") { label }
-      classes = ["mt-1 text-gray-900"]
-      classes << "whitespace-pre-wrap" if multiline
-      dd(class: classes.join(" ")) { value }
+      dd(class: ["mt-1 text-gray-900", ("whitespace-pre-wrap" if multiline)].compact.join(" ")) { value }
     end
   end
 end

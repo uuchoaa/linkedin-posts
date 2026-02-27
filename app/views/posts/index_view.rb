@@ -1,11 +1,7 @@
-class Views::Posts::IndexView < Cuy::PageView
+class Views::Posts::IndexView < Views::Posts::Base
   def initialize(posts:, params:)
     @posts = posts
     @params = params
-  end
-
-  def navbar
-    render Cuy::Navbar.new
   end
 
   def page_header

@@ -1,12 +1,7 @@
-class Views::Posts::EditView < Views::Base
-  def initialize(post:)
-    @post = post
-  end
+# frozen_string_literal: true
 
-  def view_template
-    div(class: "w-full max-w-3xl") do
-      render Components::PageHeader.new(title: "Edit Post")
-      render Components::PostForm.new(post: @post)
-    end
-  end
+class Views::Posts::EditView < Views::Posts::FormView
+  private
+
+  def form_title = "Edit Post"
 end
