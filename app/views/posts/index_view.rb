@@ -5,55 +5,41 @@ class Views::Posts::IndexView < Views::Base
   end
 
   def view_template
-    div(class: "w-full") do
-      render Cuy::PageHeader.new(title: "Posts") do
-        render Cuy::Button.new(href: new_post_path) { "New Post" }
-      end
-
-      filters
-      posts_table
+    render Cuy::PageHeader.new(title: "Posts") do
+      render Cuy::Button.new(href: new_post_path) { "New Post" }
     end
-  end
 
-  private
-
-  def filters
-    form_with url: posts_path, method: :get, class: "mb-6 flex gap-4 items-end" do |form|
+    render Cuy::FilterBar.new(url: posts_path) do
       render Cuy::Select.new(
         name: :status,
         label: "Status",
         options: [["All", ""]] + enum_options(Post.statuses),
-        selected: @params[:status],
-        include_blank: false
+        selected: @params[:status]
       )
-
       render Cuy::Select.new(
         name: :category,
         label: "Category",
         options: [["All", ""]] + enum_options(Post.categories),
-        selected: @params[:category],
-        include_blank: false
+        selected: @params[:category]
       )
-
-      form.submit("Filter", class: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300")
     end
-  end
 
-  def posts_table
     render Cuy::Table.new(@posts) do |t|
-      t.column("Title", classes: "px-6 py-4 text-sm text-gray-900", &:title)
-      t.column("Category") { |post| post.category&.humanize }
-      t.column("Status") { |post| render Cuy::Badge.new(variant: Cuy::Badge.variant_for_status(post.status)) { post.status&.humanize } }
+      t.column("Title", primary: true, &:title)
+      t.column("Category") { |p| p.category&.humanize }
+      t.column("Status") { |p| render Cuy::Badge.new(variant: Cuy::Badge.variant_for_status(p.status)) { p.status&.humanize } }
       t.column("Skill Level", &:skill_level)
-      t.column("Created") { |post| post.created_at.strftime("%Y-%m-%d") }
-      t.column("Actions", classes: "px-6 py-4 text-sm text-right space-x-2") do |post|
-        link_to "Show", post, class: "text-blue-600 hover:underline"
-        link_to "Write", write_post_path(post), class: "text-blue-600 hover:underline"
-        link_to "Edit", edit_post_path(post), class: "text-blue-600 hover:underline"
-        button_to "Delete", post, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-red-600 hover:underline inline"
+      t.column("Created") { |p| p.created_at.strftime("%Y-%m-%d") }
+      t.column("Actions", align: :right) do |p|
+        render Cuy::Button.new(variant: :ghost, href: post_path(p)) { "Show" }
+        render Cuy::Button.new(variant: :ghost, href: write_post_path(p)) { "Write" }
+        render Cuy::Button.new(variant: :ghost, href: edit_post_path(p)) { "Edit" }
+        render Cuy::Button.new(variant: :danger, href: post_path(p), method: :delete, confirm: "Are you sure?") { "Delete" }
       end
     end
   end
+
+  private
 
   def enum_options(enum_hash)
     enum_hash.keys.map { |key| [key.humanize, key] }

@@ -2,23 +2,27 @@
 
 class Cuy::Button < Cuy::Base
   VARIANTS = {
-    primary: "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700",
+    primary:   "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700",
     secondary: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300",
-    danger: "text-red-600 hover:underline",
-    ghost: "text-blue-600 hover:underline"
+    danger:    "text-red-600 hover:underline",
+    ghost:     "text-blue-600 hover:underline"
   }.freeze
 
-  def initialize(variant: :primary, href: nil, **attrs)
+  def initialize(variant: :primary, href: nil, method: nil, confirm: nil)
     @variant = variant
     @href = href
-    @attrs = attrs
+    @method = method
+    @confirm = confirm
   end
 
   def view_template(&block)
     if @href
-      a(href: @href, class: VARIANTS[@variant], **@attrs, &block)
+      data = {}
+      data[:turbo_method] = @method if @method
+      data[:turbo_confirm] = @confirm if @confirm
+      a(href: @href, class: VARIANTS[@variant], data: data.presence, &block)
     else
-      button(type: "button", class: VARIANTS[@variant], **@attrs, &block)
+      button(type: "button", class: VARIANTS[@variant], &block)
     end
   end
 end

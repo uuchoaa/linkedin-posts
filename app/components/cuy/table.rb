@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Cuy::Table < Cuy::Base
+  TD_CLASSES = {
+    left:  "px-6 py-4 text-sm text-gray-600",
+    right: "px-6 py-4 text-sm text-right space-x-2"
+  }.freeze
+
+  TD_PRIMARY_CLASSES = "px-6 py-4 text-sm text-gray-900"
+
   def initialize(rows)
     @rows = rows
     @columns = []
@@ -23,7 +30,8 @@ class Cuy::Table < Cuy::Base
           @rows.each do |row|
             tr do
               @columns.each do |col|
-                td(class: col[:classes]) { col[:content].call(row) }
+                classes = col[:primary] ? TD_PRIMARY_CLASSES : TD_CLASSES[col[:align]]
+                td(class: classes) { col[:content].call(row) }
               end
             end
           end
@@ -32,8 +40,8 @@ class Cuy::Table < Cuy::Base
     end
   end
 
-  def column(header, classes: "px-6 py-4 text-sm text-gray-600", &content)
-    @columns << { header:, classes:, content: }
+  def column(header, primary: false, align: :left, &content)
+    @columns << { header:, primary:, align:, content: }
     nil
   end
 end
