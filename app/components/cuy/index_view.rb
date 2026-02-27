@@ -11,7 +11,11 @@ class Cuy::IndexView < Cuy::PageView
     @model_class = self.class.model_class
   end
 
-  def navbar = render Cuy::Navbar.new
+  def navbar
+    render Cuy::Navbar.new do |nav|
+      nav.item(@model_class.model_name.human(count: 2), href: resource_index_path)
+    end
+  end
 
   def page_header
     render Cuy::PageHeader.new(title: page_title)
