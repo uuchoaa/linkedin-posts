@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     @posts = @posts.where(category: params[:category]) if params[:category].present?
     @posts = @posts.order(created_at: :desc)
 
-    render Views::Posts::IndexView.new(posts: @posts, params: params)
+    render Views::Posts::IndexView.new(collection: @posts, params: params)
   end
 
   def show
