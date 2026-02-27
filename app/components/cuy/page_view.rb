@@ -7,7 +7,7 @@
 #
 # Usage:
 #   class Views::Posts::IndexView < Cuy::PageView
-#     def navbar        = render Cuy::Navbar.new
+#     def navbar = render Cuy::Navbar.new
 #     def page_header   = render Cuy::PageHeader.new(title: "Posts")
 #     def main_content
 #       render Cuy::ModelTable.new(@posts)
@@ -19,9 +19,9 @@ class Cuy::PageView < Cuy::Base
   end
 
   def view_template
-    nav { navbar } if respond_to?(:navbar, true)
+    navbar if respond_to?(:navbar, true)
 
-    header(class: "container mx-auto px-5 pt-8") do
+    header(class: "container mx-auto px-5 pt-24") do
       page_header
     end if respond_to?(:page_header, true)
 
