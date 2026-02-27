@@ -8,20 +8,15 @@ class Cuy::ModelFilterBar < Cuy::Base
   end
 
   def view_template
-    render Cuy::FilterBar.new(url: @url) do
-      enum_attributes.each do |attribute|
-        render Cuy::EnumSelect.new(
-          model: @model,
-          attribute: attribute,
-          selected: @params[attribute]
-        )
+    model  = @model
+    params = @params
+    url    = @url
+
+    render Cuy::FilterBar.new(url:) do
+      model.defined_enums.keys.map(&:to_sym).each do |attribute|
+        render Cuy::EnumSelect.new(model:, attribute:, selected: params[attribute])
       end
     end
   end
 
-  private
-
-  def enum_attributes
-    @model.defined_enums.keys.map(&:to_sym)
-  end
 end
