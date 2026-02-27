@@ -12,14 +12,15 @@ class Cuy::Navbar < Cuy::Base
       div(class: "container mx-auto px-5 h-16 flex items-center gap-6") do
         a(href: "/", class: "text-lg font-semibold text-gray-900") { "LinkedIn Posts" }
         @items.each do |i|
-          a(href: i[:href], class: "text-sm text-gray-600 hover:text-gray-900") { i[:label] }
+          classes = i[:active] ? "text-sm font-medium text-gray-900" : "text-sm text-gray-600 hover:text-gray-900"
+          a(href: i[:href], class: classes) { i[:label] }
         end
       end
     end
   end
 
-  def item(label, href:)
-    @items << { label:, href: }
+  def item(label, href:, active: false)
+    @items << { label:, href:, active: }
     nil
   end
 end

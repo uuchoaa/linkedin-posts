@@ -13,7 +13,7 @@ class Cuy::IndexView < Cuy::PageView
 
   def navbar
     render Cuy::Navbar.new do |nav|
-      nav.item(@model_class.model_name.human(count: 2), href: resource_index_path)
+      nav.item(@model_class.model_name.human(count: 2), href: resource_index_path, active: false)
     end
   end
 
