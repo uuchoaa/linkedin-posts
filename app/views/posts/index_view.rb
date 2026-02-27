@@ -24,19 +24,7 @@ class Views::Posts::IndexView < Views::Base
       )
     end
 
-    render Cuy::Table.new(@posts) do |t|
-      t.column("Title", primary: true, &:title)
-      t.column("Category") { |p| p.category&.humanize }
-      t.column("Status") { |p| render Cuy::Badge.new(variant: Cuy::Badge.variant_for_status(p.status)) { p.status&.humanize } }
-      t.column("Skill Level", &:skill_level)
-      t.column("Created") { |p| p.created_at.strftime("%Y-%m-%d") }
-      t.column("Actions", align: :right) do |p|
-        render Cuy::Button.new(variant: :ghost, href: post_path(p)) { "Show" }
-        render Cuy::Button.new(variant: :ghost, href: write_post_path(p)) { "Write" }
-        render Cuy::Button.new(variant: :ghost, href: edit_post_path(p)) { "Edit" }
-        render Cuy::Button.new(variant: :danger, href: post_path(p), method: :delete, confirm: "Are you sure?") { "Delete" }
-      end
-    end
+    render Cuy::ModelTable.new(@posts, presenter: Posts::TablePresenter.new)
   end
 
   private
