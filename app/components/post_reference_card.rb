@@ -3,7 +3,7 @@ class Components::PostReferenceCard < Components::Base
     @post = post
   end
 
-  def template
+  def view_template
     div(class: "mb-6 rounded-lg border border-gray-200 bg-gray-50 p-4") do
       h2(class: "text-sm font-semibold text-gray-600 uppercase tracking-wide mb-3") { "Reference" }
 

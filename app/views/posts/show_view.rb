@@ -3,22 +3,22 @@ class Views::Posts::ShowView < Views::Base
     @post = post
   end
 
-  def template
+  def view_template
     div(class: "w-full max-w-3xl") do
       render Components::PageHeader.new(title: @post.title) do
-        unsafe_raw link_to("Write Post", write_post_path(@post), class: "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700")
-        unsafe_raw link_to("Edit", edit_post_path(@post), class: "rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700")
-        unsafe_raw link_to("Back", posts_path, class: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300")
+        link_to "Write Post", write_post_path(@post), class: "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        link_to "Edit", edit_post_path(@post), class: "rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
+        link_to "Back", posts_path, class: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300"
       end
 
       dl(class: "space-y-4") do
-        detail("Category", @post.category.humanize)
-        detail("Status", @post.status.humanize)
-        detail("Skill Level", @post.skill_level)
-        detail("Hook", @post.hook)
-        detail("Content Summary", @post.content_summary, multiline: true)
-        detail("Senior Insight", @post.senior_insight)
-        detail("CTA", @post.cta)
+        detail("Category", @post.category&.humanize) if @post.category
+        detail("Status", @post.status&.humanize) if @post.status
+        detail("Skill Level", @post.skill_level) if @post.skill_level.present?
+        detail("Hook", @post.hook) if @post.hook.present?
+        detail("Content Summary", @post.content_summary, multiline: true) if @post.content_summary.present?
+        detail("Senior Insight", @post.senior_insight) if @post.senior_insight.present?
+        detail("CTA", @post.cta) if @post.cta.present?
         detail("Hashtags", @post.hashtags.join(" ")) if @post.hashtags.any?
 
         if @post.body.present?

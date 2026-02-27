@@ -3,12 +3,12 @@ class Components::ErrorSummary < Components::Base
     @resource = resource
   end
 
-  def template
+  def view_template
     return unless @resource.errors.any?
 
     div(class: "rounded-lg bg-red-50 p-4 text-red-700") do
       h2(class: "font-medium") do
-        "#{helpers.pluralize(@resource.errors.count, 'error')} prohibited this #{@resource.model_name.human.downcase} from being saved:"
+        "#{pluralize(@resource.errors.count, 'error')} prohibited this #{@resource.model_name.human.downcase} from being saved:"
       end
 
       ul(class: "mt-2 list-disc list-inside") do
