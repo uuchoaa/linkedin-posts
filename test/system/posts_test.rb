@@ -106,6 +106,37 @@ class PostsTest < ApplicationSystemTestCase
     assert_selector "nav.inset-x-0"
   end
 
+  test "navbar shows notifications panel" do
+    Cuy::Navbar.configure do |nav|
+      nav.brand "LinkedIn Posts"
+      nav.section "Resources" do
+        nav.resource Post
+      end
+      nav.slot(:notifications) do
+        render Components::NotificationsPanel.new(
+          notifications: [
+            { title: "Post published", body: "Fixture Post Title was published", time: "2 min ago", url: "/posts" }
+          ]
+        )
+      end
+    end
+    begin
+      visit root_path
+      find("button[aria-haspopup='true']").hover
+      assert_selector "nav h3", text: "Notifications", visible: true
+      assert_text "Post published"
+      assert_text "Fixture Post Title"
+    ensure
+      Cuy::Navbar.configure do |nav|
+        nav.brand "LinkedIn Posts"
+        nav.section "Resources" do
+          nav.resource Post
+        end
+        nav.slot(:notifications) { render Components::NotificationsPanel.new(notifications: []) }
+      end
+    end
+  end
+
   test "navbar is vertical when layout strategy is sidebar" do
     Cuy.configure { |c| c.layout.strategy = :sidebar }
     begin

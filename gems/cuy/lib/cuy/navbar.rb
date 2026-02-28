@@ -143,7 +143,12 @@ class Cuy::Navbar < Cuy::Base
             render_legacy_items_horizontal
           end
         end
-        render_slot(:right) if use_dsl? && nav_structure[:slots][:right]
+        if use_dsl? && (nav_structure[:slots][:notifications] || nav_structure[:slots][:right])
+          div(class: "flex items-center gap-2") do
+            render_slot(:notifications) if nav_structure[:slots][:notifications]
+            render_slot(:right) if nav_structure[:slots][:right]
+          end
+        end
       end
     end
   end
@@ -158,7 +163,10 @@ class Cuy::Navbar < Cuy::Base
           render_legacy_items_vertical
         end
       end
-      render_slot(:bottom) if use_dsl? && nav_structure[:slots][:bottom]
+      if use_dsl?
+        render_slot(:notifications) if nav_structure[:slots][:notifications]
+        render_slot(:bottom) if nav_structure[:slots][:bottom]
+      end
     end
   end
 

@@ -2,6 +2,10 @@
 
 # Extend Cuy::Navbar registration to accept ActiveRecord model classes.
 class Cuy::Navbar
+  # Delegate to parent: class ivars aren't inherited, so configure sets Cuy::Navbar's @nav_structure.
+  def self.nav_structure
+    Cuy::Navbar == self ? @nav_structure : Cuy::Navbar.nav_structure
+  end
   def self.register(model_class = nil, **kwargs)
     if model_class && kwargs.empty?
       register_model(model_class)
