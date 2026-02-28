@@ -8,8 +8,8 @@ class Cuy::Button < Cuy::Base
     ghost:     "text-blue-600 hover:underline"
   }.freeze
 
-  def initialize(variant: :primary, type: :button, href: nil, method: nil, confirm: nil)
-    @variant = variant
+  def initialize(variant: nil, type: :button, href: nil, method: nil, confirm: nil)
+    @variant = variant || Cuy.config.components.button[:default_variant] || :primary
     @type = type
     @href = href
     @method = method

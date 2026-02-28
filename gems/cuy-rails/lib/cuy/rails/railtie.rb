@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Cuy::Rails::Railtie < Rails::Railtie
-  config.after_initialize do
+  config.before_eager_load do
     require "cuy/rails/base"
     require "cuy/rails/layout"
     require "cuy/rails/navbar"

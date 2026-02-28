@@ -6,8 +6,21 @@ module Cuy
   extend Phlex::Kit
   module FieldTypes
   end
+
+  class << self
+    def config
+      @config ||= Config.new
+    end
+
+    def configure
+      yield config
+    end
+  end
 end
 
+require "cuy/config_object"
+require "cuy/components_config"
+require "cuy/config"
 require "cuy/base"
 require "cuy/badge"
 require "cuy/button"
