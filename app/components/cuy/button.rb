@@ -8,8 +8,9 @@ class Cuy::Button < Cuy::Base
     ghost:     "text-blue-600 hover:underline"
   }.freeze
 
-  def initialize(variant: :primary, href: nil, method: nil, confirm: nil)
+  def initialize(variant: :primary, type: :button, href: nil, method: nil, confirm: nil)
     @variant = variant
+    @type = type
     @href = href
     @method = method
     @confirm = confirm
@@ -22,7 +23,7 @@ class Cuy::Button < Cuy::Base
       data[:turbo_confirm] = @confirm if @confirm
       a(href: @href, class: VARIANTS[@variant], data: data.presence, &block)
     else
-      button(type: "button", class: VARIANTS[@variant], &block)
+      button(type: @type.to_s, class: VARIANTS[@variant], &block)
     end
   end
 end
