@@ -28,9 +28,7 @@ class Cuy::ModelTable < Cuy::Base
   def columns
     return @presenter.columns if @presenter&.respond_to?(:columns)
 
-    @model_class.column_names.reject do |col|
-      DEFAULT_EXCLUDED.include?(col) || col.end_with?("_id")
-    end
+    @model_class.column_names.reject { |col| DEFAULT_EXCLUDED.include?(col) }
   end
 
   def primary_column
@@ -44,21 +42,7 @@ class Cuy::ModelTable < Cuy::Base
   end
 
   def format_value(record, col)
-    value = record.send(col)
-    column_meta = @model_class.columns_hash[col.to_s]
-
-    if @model_class.defined_enums.key?(col.to_s)
-      variant = @presenter&.respond_to?(:badge_variant) ? @presenter.badge_variant(col, value) : :neutral
-      render Cuy::Badge.new(variant:) { value&.humanize }
-    elsif column_meta&.type == :datetime || column_meta&.type == :date
-      value&.strftime("%Y-%m-%d")
-    elsif column_meta&.type == :boolean
-      render Cuy::Badge.new(variant: value ? :success : :neutral) { value ? "Yes" : "No" }
-    elsif value.is_a?(Array)
-      value.join(", ")
-    else
-      value
-    end
+    Cuy::FieldType.resolve(@model_class, col).render_table(self, record, col)
   end
 
   def actions(record)

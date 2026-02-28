@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  belongs_to :author, optional: true
   enum :category, {
     modular_monoliths: 0,
     design_systems: 1,

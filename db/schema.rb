@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_25_153625) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_28_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "authors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", force: :cascade do |t|
+    t.bigint "author_id"
     t.text "body"
     t.integer "category"
     t.text "content_summary"
@@ -28,6 +35,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_153625) do
     t.integer "status"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["external_id"], name: "index_posts_on_external_id", unique: true
   end
+
+  add_foreign_key "posts", "authors"
 end
