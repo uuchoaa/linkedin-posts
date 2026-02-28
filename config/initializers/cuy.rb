@@ -9,4 +9,11 @@ Rails.application.config.to_prepare do
     config.layout.sidebar.width = "64"
     config.components.button[:default_variant] = :primary
   end
+
+  Cuy::Navbar.configure do |nav|
+    nav.brand "LinkedIn Posts"
+    nav.section "Resources" do
+      nav.resource Post
+    end
+  end
 end
