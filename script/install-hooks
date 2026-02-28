@@ -7,4 +7,6 @@ cd "$REPO_ROOT"
 
 cp .githooks/pre-commit "$HOOKS_DIR/pre-commit"
 chmod +x "$HOOKS_DIR/pre-commit"
-echo "Pre-commit hook installed."
+cp .githooks/commit-msg "$HOOKS_DIR/commit-msg"
+chmod +x "$HOOKS_DIR/commit-msg"
+echo "Pre-commit and commit-msg hooks installed."
