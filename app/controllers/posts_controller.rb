@@ -76,7 +76,7 @@ class PostsController < ApplicationController
 
   def post_params
     permitted = params.require(:post).permit(
-      :title, :skill_level, :hook, :content_summary, :senior_insight,
+      :external_id, :title, :skill_level, :hook, :content_summary, :senior_insight,
       :cta, :status, :category
     )
     permitted[:hashtags] = params[:post][:hashtags].to_s.split

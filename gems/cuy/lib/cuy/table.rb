@@ -13,8 +13,8 @@ class Cuy::Table < Cuy::Base
     @columns = []
   end
 
-  def view_template(&)
-    vanish(&)
+  def view_template(&block)
+    block&.call(self)
 
     div(class: "overflow-x-auto rounded-lg border border-gray-200") do
       table(class: "min-w-full divide-y divide-gray-200") do

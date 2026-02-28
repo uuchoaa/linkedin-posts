@@ -7,6 +7,7 @@ class Views::Posts::FormView < Views::Posts::Base
 
   def page_header
     render Cuy::PageHeader.new(title: form_title)
+      .with_action(Cuy::Button.new(variant: :secondary, href: posts_path) { "Back" })
   end
 
   def main_content

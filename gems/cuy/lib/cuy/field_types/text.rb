@@ -11,6 +11,6 @@ class Cuy::FieldTypes::Text
 
   def self.render_show(renderer, record, attr)
     renderer.whitespace
-    renderer.span(class: "whitespace-pre-wrap") { record.send(attr) }
+    renderer.span(class: "whitespace-pre-wrap") { record.send(attr).to_s }
   end
 end
