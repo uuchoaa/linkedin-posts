@@ -3,6 +3,26 @@
 require "application_system_test_case"
 
 class PostsTest < ApplicationSystemTestCase
+  NAVBAR_BRAND = "LinkedIn Posts"
+
+  test "navbar brand is consistent across CRUD pages" do
+    visit root_path
+    assert_link NAVBAR_BRAND, href: "/"
+
+    post = posts(:one)
+    click_link "Show", href: post_path(post)
+    assert_link NAVBAR_BRAND, href: "/"
+
+    visit new_post_path
+    assert_link NAVBAR_BRAND, href: "/"
+
+    visit edit_post_path(post)
+    assert_link NAVBAR_BRAND, href: "/"
+
+    visit write_post_path(post)
+    assert_link NAVBAR_BRAND, href: "/"
+  end
+
   test "index displays posts" do
     visit root_path
 
