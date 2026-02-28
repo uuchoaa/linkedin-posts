@@ -24,7 +24,7 @@ class Cuy::Form::Actions < Cuy::Base
   end
 
   def button(text, type: :button, variant: :primary, **opts)
-    render Cuy::Button.new(type: type, variant: variant, **opts) { text }
+    render Cuy::Button.new(type:, variant:, **opts) { text }
   end
 
   def cancel(text = "Cancel", **opts)
@@ -41,7 +41,7 @@ class Cuy::Form::Actions < Cuy::Base
     end
 
     def button(text, type: :button, variant: :primary, **opts)
-      @actions.button(text, type: type, variant: variant, **opts)
+      @actions.button(text, type:, variant:, **opts)
     end
 
     def cancel(text = "Cancel", **opts)

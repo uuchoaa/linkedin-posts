@@ -2,6 +2,6 @@
 
 class Views::Base < Cuy::Base
   def around_template
-    render Cuy::Layout.new { super }
+    render Cuy::Rails::Layout.new(title: "LinkedIn Posts") { super }
   end
 end

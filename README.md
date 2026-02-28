@@ -1,24 +1,16 @@
-# README
+# LinkedInPosts
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Mock Rails application to incubate the **cuy** design system ecosystem.
 
-Things you may want to cover:
+## Gems
 
-* Ruby version
+- **cuy** (`gems/cuy`) – design system: components, pages, HTML. Use with Sinatra etc.
+- **cuy-rails** (`gems/cuy-rails`) – Rails: AR inference, route helpers, Layout, IndexView, ModelTable.
 
-* System dependencies
+## Getting started
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+bundle install
+rails db:create db:migrate
+rails server
+```

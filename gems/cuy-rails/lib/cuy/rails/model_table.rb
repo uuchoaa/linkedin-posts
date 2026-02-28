@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Cuy::ModelTable < Cuy::Base
+class Cuy::Rails::ModelTable < Cuy::Base
   DEFAULT_EXCLUDED = %w[id created_at updated_at].freeze
 
   def initialize(collection, presenter: nil)
@@ -42,7 +42,7 @@ class Cuy::ModelTable < Cuy::Base
   end
 
   def format_value(record, col)
-    Cuy::FieldType.resolve(@model_class, col).render_table(self, record, col)
+    Cuy::Rails::FieldType.resolve(@model_class, col).render_table(self, record, col)
   end
 
   def actions(record)

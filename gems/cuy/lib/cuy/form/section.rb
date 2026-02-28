@@ -2,9 +2,9 @@
 
 class Cuy::Form::Section < Cuy::Base
   SPACING = {
-    tight: "space-y-6",
+    tight:  "space-y-6",
     normal: "space-y-12",
-    loose: "space-y-16"
+    loose:  "space-y-16"
   }.freeze
 
   def initialize(title:, description: nil, border: true, spacing: :normal, **html_options)

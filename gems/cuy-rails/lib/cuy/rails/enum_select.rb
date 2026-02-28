@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Cuy::EnumSelect < Cuy::Base
+class Cuy::Rails::EnumSelect < Cuy::Base
   def initialize(model:, attribute:, selected: nil)
     @model = model
     @attribute = attribute

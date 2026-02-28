@@ -7,11 +7,6 @@ module Components
   extend Phlex::Kit
 end
 
-module Cuy
-  extend Phlex::Kit
-  module FieldTypes; end
-end
-
 module Views::Posts
   module FieldTypes; end
 end
@@ -22,14 +17,6 @@ Rails.autoloaders.main.push_dir(
 
 Rails.autoloaders.main.push_dir(
   Rails.root.join("app/components"), namespace: Components
-)
-
-Rails.autoloaders.main.push_dir(
-  Rails.root.join("app/components/cuy"), namespace: Cuy
-)
-
-Rails.autoloaders.main.push_dir(
-  Rails.root.join("app/components/cuy/field_types"), namespace: Cuy::FieldTypes
 )
 
 Rails.autoloaders.main.push_dir(

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Cuy::IndexView < Cuy::PageView
+class Cuy::Rails::IndexView < Cuy::Rails::PageView
   def self.model_class(klass = nil)
     if klass
       @model_class = klass
-      Cuy::Navbar.register(klass)
+      Cuy::Navbar.register_model(klass)
     else
       @model_class
     end
@@ -24,12 +24,12 @@ class Cuy::IndexView < Cuy::PageView
   end
 
   def main_content
-    render Cuy::ModelFilterBar.new(
+    render Cuy::Rails::ModelFilterBar.new(
       model: @model_class,
       url: resource_index_path,
       params: @params
     )
-    render Cuy::ModelTable.new(@collection, presenter: inferred_presenter)
+    render Cuy::Rails::ModelTable.new(@collection, presenter: inferred_presenter)
   end
 
   private

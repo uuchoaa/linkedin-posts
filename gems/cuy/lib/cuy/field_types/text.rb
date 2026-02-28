@@ -5,7 +5,8 @@ class Cuy::FieldTypes::Text
 
   def self.render_table(renderer, record, attr)
     value = record.send(attr).to_s
-    renderer.plain value.truncate(TRUNCATE_LENGTH)
+    truncated = value.length > TRUNCATE_LENGTH ? "#{value[0, TRUNCATE_LENGTH]}..." : value
+    renderer.plain truncated
   end
 
   def self.render_show(renderer, record, attr)

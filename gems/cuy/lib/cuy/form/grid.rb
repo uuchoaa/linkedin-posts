@@ -9,11 +9,7 @@ class Cuy::Form::Grid < Cuy::Base
 
   def view_template(&block)
     div(
-      class: [
-        "grid",
-        cols_class,
-        gap_class
-      ].join(" "),
+      class: [ "grid", cols_class, gap_class ].join(" "),
       **@html_options
     ) do
       yield GridBuilder.new(self)
@@ -31,7 +27,7 @@ class Cuy::Form::Grid < Cuy::Base
     end
 
     def column(span:, **opts, &block)
-      @grid.column(span: span, **opts, &block)
+      @grid.column(span:, **opts, &block)
     end
   end
 
@@ -40,9 +36,7 @@ class Cuy::Form::Grid < Cuy::Base
   def cols_class
     case @cols
     when Hash
-      @cols.map do |k, v|
-        k == :base ? "grid-cols-#{v}" : "#{k}:grid-cols-#{v}"
-      end.join(" ")
+      @cols.map { |k, v| k == :base ? "grid-cols-#{v}" : "#{k}:grid-cols-#{v}" }.join(" ")
     when Integer
       "grid-cols-#{@cols}"
     else

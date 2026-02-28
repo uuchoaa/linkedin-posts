@@ -11,12 +11,10 @@ class Cuy::Select < Cuy::Base
 
   def view_template
     div do
-      if @label
-        label(for: @name, class: "block text-sm font-medium text-gray-700 mb-1") { @label }
-      end
+      label(for: @name, class: "block text-sm font-medium text-gray-700 mb-1") { @label } if @label
       select(name: @name, id: @name, class: "rounded border border-gray-300 px-3 py-2") do
         option(value: "") { "All" } if @include_blank
-        @options.each do |(label, value)|
+        @options.each do |label, value|
           if @selected.to_s == value.to_s
             option(value: value, selected: true) { label }
           else

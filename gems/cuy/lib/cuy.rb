@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+require "phlex"
+
+module Cuy
+  extend Phlex::Kit
+  module FieldTypes
+  end
+end
+
+require "cuy/base"
+require "cuy/badge"
+require "cuy/button"
+require "cuy/select"
+require "cuy/table"
+require "cuy/form"
+require "cuy/form/grid"
+require "cuy/form/section"
+require "cuy/form/actions"
+require "cuy/filter_bar"
+require "cuy/page_header"
+require "cuy/layout"
+require "cuy/navbar"
+require "cuy/page_view"
+
+require "cuy/field_types/string"
+require "cuy/field_types/boolean"
+require "cuy/field_types/text"
+require "cuy/field_types/datetime"
+require "cuy/field_types/array"
+require "cuy/field_types/enum"
+require "cuy/field_types/belongs_to"
+require "cuy/field_types/default"
