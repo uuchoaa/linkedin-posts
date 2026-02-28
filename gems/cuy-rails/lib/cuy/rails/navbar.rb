@@ -29,26 +29,14 @@ end
 
 # Rails-aware Navbar that resolves paths via route helpers.
 class Cuy::Rails::Navbar < Cuy::Navbar
-  def initialize(brand: "App", current_path: nil)
-    super(brand:, current_path:)
+  def initialize(brand: "App", current_path: nil, orientation: nil)
+    super(brand:, current_path:, orientation:)
   end
 
-  def view_template
-    items = self.class::REGISTRY.map do |item|
+  def nav_items
+    self.class::REGISTRY.map do |item|
       path = item[:path] || (item[:route_key] && helpers.public_send(:"#{item[:route_key]}_path"))
       item.merge(path: path)
-    end
-
-    nav(class: "fixed top-0 inset-x-0 z-10 bg-white border-b border-gray-200") do
-      div(class: "container mx-auto px-5 h-16 flex items-center gap-6") do
-        a(href: "/", class: "text-lg font-semibold text-gray-900") { @brand }
-        items.each do |item|
-          next unless item[:path]
-          active = @current_path&.start_with?(item[:matches].to_s)
-          classes = active ? "text-md font-medium text-gray-900" : "text-sm text-gray-600 hover:text-gray-900"
-          a(href: item[:path], class: classes) { item[:label] }
-        end
-      end
     end
   end
 end

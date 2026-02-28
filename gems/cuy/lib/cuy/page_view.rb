@@ -20,18 +20,42 @@ class Cuy::PageView < Cuy::Base
   end
 
   def view_template
+    orientation = navbar_orientation
+
+    if orientation == :vertical
+      render_vertical_layout
+    else
+      render_horizontal_layout
+    end
+  end
+
+  def navbar_orientation
+    Cuy::Navbar.default_orientation
+  end
+
+  def render_horizontal_layout
     navbar if respond_to?(:navbar, true)
+    content_section(pt: "pt-24")
+  end
 
-    if respond_to?(:page_header, true)
-      header(class: "container mx-auto px-5 pt-24") { page_header }
-    end
+  def render_vertical_layout
+    navbar if respond_to?(:navbar, true)
+    content_section(ml: Cuy::Navbar.content_offset_class)
+  end
 
-    if respond_to?(:main_content, true)
-      main(class: "container mx-auto px-5 flex flex-col gap-6 pb-12") { main_content }
-    end
+  def content_section(pt: nil, ml: nil)
+    header_classes = [ "container mx-auto px-5", pt ].compact.join(" ")
 
-    if respond_to?(:aside_content, true)
-      aside(class: "container mx-auto px-5") { aside_content }
+    if ml
+      div(class: ml) do
+        header(class: header_classes) { page_header } if respond_to?(:page_header, true)
+        main(class: "container mx-auto px-5 flex flex-col gap-6 pb-12") { main_content } if respond_to?(:main_content, true)
+        aside(class: "container mx-auto px-5") { aside_content } if respond_to?(:aside_content, true)
+      end
+    else
+      header(class: header_classes) { page_header } if respond_to?(:page_header, true)
+      main(class: "container mx-auto px-5 flex flex-col gap-6 pb-12") { main_content } if respond_to?(:main_content, true)
+      aside(class: "container mx-auto px-5") { aside_content } if respond_to?(:aside_content, true)
     end
   end
 end

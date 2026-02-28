@@ -99,4 +99,21 @@ class PostsTest < ApplicationSystemTestCase
     assert_text "Post was successfully deleted."
     assert_no_text "Fixture Post Title"
   end
+
+  test "navbar is horizontal when layout strategy is stacked" do
+    Cuy.configure { |c| c.layout.strategy = :stacked }
+    visit root_path
+    assert_selector "nav.inset-x-0"
+  end
+
+  test "navbar is vertical when layout strategy is sidebar" do
+    Cuy.configure { |c| c.layout.strategy = :sidebar }
+    begin
+      visit root_path
+      assert_selector "nav.left-0"
+      assert_selector "nav.w-64"
+    ensure
+      Cuy.configure { |c| c.layout.strategy = :stacked }
+    end
+  end
 end
