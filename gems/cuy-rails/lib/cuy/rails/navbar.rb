@@ -17,6 +17,8 @@ class Cuy::Navbar
 
   def self.register_model(model_class)
     route_key = model_class.model_name.route_key
+    return if REGISTRY.any? { |r| r[:route_key] == route_key }
+
     register(
       label:     model_class.model_name.human(count: 2),
       route_key: route_key,
