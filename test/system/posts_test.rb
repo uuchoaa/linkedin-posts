@@ -38,6 +38,19 @@ class PostsTest < ApplicationSystemTestCase
     assert_current_path posts_path
   end
 
+  test "edit page loads after component reload" do
+    post = posts(:one)
+    visit edit_post_path(post)
+    assert_text "Edit Post"
+
+    # Simulate development reload (ErrorSummary lives under Rendering to avoid Phlex::Kit NameError)
+    Components::Rendering.send(:remove_const, :ErrorSummary)
+    load Rails.root.join("app/components/rendering/error_summary.rb").to_s
+
+    visit edit_post_path(post)
+    assert_text "Edit Post"
+  end
+
   test "new post" do
     visit root_path
     click_link "New Post"

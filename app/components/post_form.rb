@@ -8,7 +8,7 @@ class Components::PostForm < Components::Base
 
   def view_template
     form_with model: @post, class: "space-y-12" do |form|
-      render Components::ErrorSummary.new(resource: @post)
+      render Components::Rendering::ErrorSummary.new(resource: @post)
 
       render Cuy::Form::Section.new(title: "Post", description: "Basic post information") do
         render Cuy::Form::Grid.new(cols: { base: 1, sm: 6 }, gap: { x: 6, y: 8 }) do |grid|

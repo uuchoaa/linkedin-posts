@@ -18,7 +18,7 @@ class Views::Posts::WriteView < Views::Posts::Base
               method: :patch,
               class: "space-y-4",
               data: { controller: "generate-body", generate_body_url_value: generate_body_post_path(@post) } do |form|
-      render Components::ErrorSummary.new(resource: @post)
+      render Components::Rendering::ErrorSummary.new(resource: @post)
 
       div do
         div(class: "flex justify-between items-center mb-1") do
