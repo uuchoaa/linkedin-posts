@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+echo "Running Rubocop..."
+bundle exec rubocop
+echo "Running tests..."
+bundle exec rails test test/
+echo "Running system tests..."
+bundle exec rails test:system
+echo "All checks passed."

@@ -1,24 +1,29 @@
-# README
+# LinkedInPosts
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Mock Rails app incubating the **Cuy** design system (Phlex components).
 
-Things you may want to cover:
+## Gems
 
-* Ruby version
+- **cuy** (`gems/cuy`) v0.1.0 — Components, helpers, layout. Use with Sinatra, Rack, or cuy-rails.
+- **cuy-rails** (`gems/cuy-rails`) — Rails: AR inference, route helpers, IndexView, ModelTable.
 
-* System dependencies
+## Docs
 
-* Configuration
+See [`docs/`](docs/) for concepts:
 
-* Database creation
+- [Overview](docs/overview.md)
+- [Components](docs/components.md)
+- [Helpers](docs/helpers.md)
+- [Layout](docs/layout.md)
+- [Phlexbook](docs/phlexbook.md)
+- [Next steps](docs/next-steps.md)
 
-* Database initialization
+## Getting started
 
-* How to run the test suite
+```bash
+bundle install
+rails db:create db:migrate
+rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Phlexbook (component docs): `cd apps/phlexbook && bundle exec rackup`

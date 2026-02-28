@@ -8,13 +8,17 @@ class PostsController < ApplicationController
     @posts = @posts.where(status: params[:status]) if params[:status].present?
     @posts = @posts.where(category: params[:category]) if params[:category].present?
     @posts = @posts.order(created_at: :desc)
+
+    render Views::Posts::IndexView.new(collection: @posts, params: params)
   end
 
   def show
+    render Views::Posts::ShowView.new(post: @post)
   end
 
   def new
     @post = Post.new
+    render Views::Posts::NewView.new(post: @post)
   end
 
   def create
@@ -22,18 +26,19 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: "Post was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render Views::Posts::NewView.new(post: @post), status: :unprocessable_entity
     end
   end
 
   def edit
+    render Views::Posts::EditView.new(post: @post)
   end
 
   def update
     if @post.update(post_params)
       redirect_to @post, notice: "Post was successfully updated."
     else
-      render :edit, status: :unprocessable_entity
+      render Views::Posts::EditView.new(post: @post), status: :unprocessable_entity
     end
   end
 
@@ -43,13 +48,14 @@ class PostsController < ApplicationController
   end
 
   def write
+    render Views::Posts::WriteView.new(post: @post)
   end
 
   def update_body
     if @post.update(body_params)
       redirect_to @post, notice: "Post body was successfully updated."
     else
-      render :write, status: :unprocessable_entity
+      render Views::Posts::WriteView.new(post: @post), status: :unprocessable_entity
     end
   end
 
@@ -70,7 +76,7 @@ class PostsController < ApplicationController
 
   def post_params
     permitted = params.require(:post).permit(
-      :title, :skill_level, :hook, :content_summary, :senior_insight,
+      :external_id, :title, :skill_level, :hook, :content_summary, :senior_insight,
       :cta, :status, :category
     )
     permitted[:hashtags] = params[:post][:hashtags].to_s.split

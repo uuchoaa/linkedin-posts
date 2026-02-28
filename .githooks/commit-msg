@@ -1,0 +1,23 @@
+#!/bin/sh
+# Validates commit message format: <type>: <message>
+#   type: feat | fix | refactor | docs | chore | test | ops
+#   Optional scope: type[scope]:
+#   message: short, imperative, lowercase
+
+MSG_FILE="$1"
+if [ -z "$MSG_FILE" ] || [ ! -f "$MSG_FILE" ]; then
+  exit 0
+fi
+
+SUBJECT=$(head -n1 "$MSG_FILE")
+if ! echo "$SUBJECT" | grep -qE '^(feat|fix|refactor|docs|chore|test|ops)(\[[a-z-]+\])?: [a-z]'; then
+  echo "Invalid commit message format."
+  echo "Expected: <type>: <message>"
+  echo "  type: feat | fix | refactor | docs | chore | test | ops"
+  echo "  message: short, imperative, lowercase"
+  echo "Examples:"
+  echo "  feat: update icon usage"
+  echo "  feat[cuy]: add navbar"
+  echo "Got: $SUBJECT"
+  exit 1
+fi

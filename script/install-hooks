@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+HOOKS_DIR=".git/hooks"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+cp .githooks/pre-commit "$HOOKS_DIR/pre-commit"
+chmod +x "$HOOKS_DIR/pre-commit"
+cp .githooks/commit-msg "$HOOKS_DIR/commit-msg"
+chmod +x "$HOOKS_DIR/commit-msg"
+echo "Pre-commit and commit-msg hooks installed."

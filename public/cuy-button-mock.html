@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuy – Storybook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .sidebar-link.active { background: rgba(255,255,255,0.1); }
+  </style>
+</head>
+<body class="flex h-screen bg-[#f0f0f0] text-gray-900">
+  <!-- Sidebar -->
+  <aside class="w-60 flex-shrink-0 bg-[#1e1e1e] text-white">
+    <div class="p-4 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <span class="text-lg font-bold">Cuy</span>
+        <span class="text-xs text-gray-400 font-mono">DS</span>
+      </div>
+    </div>
+    <nav class="p-2">
+      <div class="text-[10px] uppercase tracking-wider text-gray-500 px-3 py-2">Components</div>
+      <a href="#" class="sidebar-link active flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-white/5">Button</a>
+      <div class="pl-4 mt-1 space-y-0.5">
+        <a href="#default" class="block px-3 py-1.5 rounded text-xs text-gray-400 hover:text-white hover:bg-white/5">Default</a>
+        <a href="#variants" class="block px-3 py-1.5 rounded text-xs text-gray-400 hover:text-white hover:bg-white/5">Variants</a>
+        <a href="#as-link" class="block px-3 py-1.5 rounded text-xs text-gray-400 hover:text-white hover:bg-white/5">As link</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <!-- Top bar -->
+    <header class="flex-shrink-0 h-12 flex items-center gap-4 px-6 bg-white border-b border-gray-200">
+      <nav class="flex items-center gap-2 text-sm text-gray-500">
+        <span>Components</span>
+        <span>/</span>
+        <span class="text-gray-900 font-medium">Button</span>
+      </nav>
+      <span class="text-xs text-gray-400 ml-auto">Phlex component</span>
+    </header>
+
+    <!-- Canvas -->
+    <div class="flex-1 overflow-auto p-6">
+      <div class="max-w-4xl space-y-12">
+        <!-- Component docs -->
+        <section class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Overview</h2>
+          <div class="prose prose-sm max-w-none text-gray-600">
+            <p>Primary actions and links. Use <code class="px-1.5 py-0.5 rounded bg-gray-100 font-mono text-xs">variant</code> for style, <code class="px-1.5 py-0.5 rounded bg-gray-100 font-mono text-xs">href</code> to render as a link.</p>
+            <p class="mt-2">Add your documentation here.</p>
+          </div>
+        </section>
+
+        <!-- Story: Default -->
+        <section id="default">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Default</h2>
+          <p class="text-sm text-gray-500 mb-3">Base button, primary variant.</p>
+          <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
+            <button type="button" class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Save</button>
+          </div>
+          <details class="mt-4">
+            <summary class="text-xs text-gray-500 cursor-pointer hover:text-gray-700">View code</summary>
+            <pre class="mt-2 p-4 rounded bg-[#1e1e1e] text-gray-300 text-xs overflow-x-auto"><code>render Cuy::Button.new { "Save" }</code></pre>
+          </details>
+        </section>
+
+        <!-- Story: Variants -->
+        <section id="variants">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Variants</h2>
+          <p class="text-sm text-gray-500 mb-3">primary, secondary, danger, ghost.</p>
+          <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
+            <div class="flex flex-wrap gap-4">
+              <button type="button" class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Primary</button>
+              <button type="button" class="rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300">Secondary</button>
+              <a href="#" class="text-red-600 hover:underline">Danger</a>
+              <a href="#" class="text-blue-600 hover:underline">Ghost</a>
+            </div>
+          </div>
+          <details class="mt-4">
+            <summary class="text-xs text-gray-500 cursor-pointer hover:text-gray-700">View code</summary>
+            <pre class="mt-2 p-4 rounded bg-[#1e1e1e] text-gray-300 text-xs overflow-x-auto"><code>render Cuy::Button.new(variant: :primary) { "Primary" }
+render Cuy::Button.new(variant: :secondary) { "Secondary" }
+render Cuy::Button.new(variant: :danger) { "Danger" }
+render Cuy::Button.new(variant: :ghost) { "Ghost" }</code></pre>
+          </details>
+        </section>
+
+        <!-- Story: As link -->
+        <section id="as-link">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">As link</h2>
+          <p class="text-sm text-gray-500 mb-3">Pass href to render an anchor. Supports method and confirm for Turbo.</p>
+          <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
+            <div class="flex flex-wrap gap-4">
+              <a href="/posts" class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">New Post</a>
+              <a href="/posts/1" class="rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300">Edit</a>
+              <a href="/posts/1" class="text-blue-600 hover:underline">Show</a>
+              <a href="/posts/1" class="text-red-600 hover:underline" data-turbo-method="delete" data-turbo-confirm="Are you sure?">Delete</a>
+            </div>
+          </div>
+          <details class="mt-4">
+            <summary class="text-xs text-gray-500 cursor-pointer hover:text-gray-700">View code</summary>
+            <pre class="mt-2 p-4 rounded bg-[#1e1e1e] text-gray-300 text-xs overflow-x-auto"><code>render Cuy::Button.new(variant: :primary, href: new_post_path) { "New Post" }
+render Cuy::Button.new(variant: :danger, href: post_path(@post), method: :delete, confirm: "Are you sure?") { "Delete" }</code></pre>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

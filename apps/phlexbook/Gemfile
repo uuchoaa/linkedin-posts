@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gem "sinatra", "~> 4.0"
+gem "phlex", "~> 1.0"
+gem "cuy", path: "../../gems/cuy"
+gem "puma", ">= 5.0"
+gem "rackup"
+gem "activesupport", "~> 7.0"
