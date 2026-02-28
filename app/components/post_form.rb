@@ -26,7 +26,7 @@ class Components::PostForm < Components::Base
             form.label(:category, class: LABEL_CLASS)
             form.select(
               :category,
-              Post.categories.keys.map { |k| [k.humanize, k] },
+              Post.categories.keys.map { |k| [ k.humanize, k ] },
               { include_blank: true, selected: @post.category },
               class: INPUT_CLASS
             )
@@ -36,7 +36,7 @@ class Components::PostForm < Components::Base
             form.label(:status, class: LABEL_CLASS)
             form.select(
               :status,
-              Post.statuses.keys.map { |k| [k.humanize, k] },
+              Post.statuses.keys.map { |k| [ k.humanize, k ] },
               { selected: @post.status },
               class: INPUT_CLASS
             )

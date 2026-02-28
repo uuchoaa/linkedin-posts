@@ -28,7 +28,7 @@ class Components::PostReferenceCard < Components::Base
   def reference_item(label, value, multiline: false)
     return if value.blank?
 
-    classes = ["mt-0.5 text-gray-900"]
+    classes = [ "mt-0.5 text-gray-900" ]
     classes << "whitespace-pre-wrap" if multiline
 
     div do

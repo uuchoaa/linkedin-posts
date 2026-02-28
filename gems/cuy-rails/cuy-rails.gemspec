@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.authors     = [ "LinkedIn Posts" ]
   s.summary     = "Rails integration for Cuy design system"
   s.description = "AR inference, route helpers, polymorphic paths, and seamless Rails integration."
-  s.files       = Dir[ "lib/**/*" ]
+  s.files       = Dir["lib/**/*"]
   s.required_ruby_version = ">= 3.0"
 
   s.add_dependency "cuy", "~> 0.1"
