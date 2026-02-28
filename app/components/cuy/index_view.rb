@@ -2,19 +2,18 @@
 
 class Cuy::IndexView < Cuy::PageView
   def self.model_class(klass = nil)
-    klass ? @model_class = klass : @model_class
+    if klass
+      @model_class = klass
+      Cuy::Navbar.register(klass)
+    else
+      @model_class
+    end
   end
 
   def initialize(collection:, params: {})
     @collection = collection
     @params = params
     @model_class = self.class.model_class
-  end
-
-  def navbar
-    render Cuy::Navbar.new do |nav|
-      nav.item(@model_class.model_name.human(count: 2), href: resource_index_path, active: false)
-    end
   end
 
   def page_header

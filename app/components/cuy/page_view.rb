@@ -18,6 +18,10 @@ class Cuy::PageView < Cuy::Base
     render Cuy::Layout.new { super }
   end
 
+  def navbar
+    render Cuy::Navbar.new
+  end
+
   def view_template
     navbar if respond_to?(:navbar, true)
 
