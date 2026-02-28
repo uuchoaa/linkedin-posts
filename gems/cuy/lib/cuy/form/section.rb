@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Form::Section < Cuy::Base
+  cuy_helper :cuy_section
+
   SPACING = {
     tight:  "space-y-6",
     normal: "space-y-12",

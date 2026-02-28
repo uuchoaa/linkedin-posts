@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Form::Actions < Cuy::Base
+  cuy_helper :cuy_actions
+
   ALIGN = {
     start:   "justify-start",
     end:     "justify-end",

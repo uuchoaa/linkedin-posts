@@ -5,6 +5,7 @@ require "active_support/core_ext/object/blank"
 require "cuy"
 require_relative "phlexbook"
 require_relative "views/layout"
+require_relative "views/helper_registration_display"
 require_relative "views/button_page"
 
 module Phlexbook

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Button < Cuy::Base
+  cuy_helper :cuy_button
+
   VARIANTS = {
     primary:   "rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700",
     secondary: "rounded-lg bg-gray-200 px-4 py-2 hover:bg-gray-300",

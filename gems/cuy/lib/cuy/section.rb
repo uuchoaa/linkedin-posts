@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Section < Cuy::Base
+  cuy_helper :cuy_doc_section
+
   def initialize(id: nil, title: nil, description: nil)
     @id = id
     @title = title

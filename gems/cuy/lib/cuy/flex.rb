@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Flex < Cuy::Base
+  cuy_helper :cuy_flex
+
   def initialize(wrap: false, gap: 4)
     @wrap = wrap
     @gap = gap

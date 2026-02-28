@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Card < Cuy::Base
+  cuy_helper :cuy_card
+
   def initialize(padding: :normal, title: nil)
     @padding = padding
     @title = title

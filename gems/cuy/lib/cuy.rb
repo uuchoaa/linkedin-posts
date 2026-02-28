@@ -48,6 +48,10 @@ require "cuy/layout"
 require "cuy/navbar"
 require "cuy/page_view"
 
+require "cuy/form/helpers"
+require "cuy/ui_helpers"
+require "cuy/helpers"
+
 require "cuy/field_types/string"
 require "cuy/field_types/boolean"
 require "cuy/field_types/text"

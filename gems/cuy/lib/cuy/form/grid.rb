@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Form::Grid < Cuy::Base
+  cuy_helper :cuy_grid
+
   def initialize(cols: { base: 1, sm: 6 }, gap: { x: 6, y: 8 }, **html_options)
     @cols = cols
     @gap = gap

@@ -16,9 +16,9 @@ class Posts::TablePresenter
   end
 
   def actions(renderer, post)
-    renderer.render Cuy::Button.new(variant: :ghost, href: renderer.post_path(post)) { "Show" }
-    renderer.render Cuy::Button.new(variant: :ghost, href: renderer.write_post_path(post)) { "Write" }
-    renderer.render Cuy::Button.new(variant: :ghost, href: renderer.edit_post_path(post)) { "Edit" }
-    renderer.render Cuy::Button.new(variant: :danger, href: renderer.post_path(post), method: :delete, confirm: "Are you sure?") { "Delete" }
+    renderer.cuy_button(variant: :ghost, href: renderer.post_path(post)) { "Show" }
+    renderer.cuy_button(variant: :ghost, href: renderer.write_post_path(post)) { "Write" }
+    renderer.cuy_button(variant: :ghost, href: renderer.edit_post_path(post)) { "Edit" }
+    renderer.cuy_button(variant: :danger, href: renderer.post_path(post), method: :delete, confirm: "Are you sure?") { "Delete" }
   end
 end

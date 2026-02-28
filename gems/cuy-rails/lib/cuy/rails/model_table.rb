@@ -48,8 +48,8 @@ class Cuy::Rails::ModelTable < Cuy::Base
   def actions(record)
     return @presenter.actions(self, record) if @presenter&.respond_to?(:actions)
 
-    render Cuy::Button.new(variant: :ghost, href: helpers.polymorphic_path(record)) { "Show" }
-    render Cuy::Button.new(variant: :ghost, href: helpers.polymorphic_path([ :edit, record ])) { "Edit" }
-    render Cuy::Button.new(variant: :danger, href: helpers.polymorphic_path(record), method: :delete, confirm: "Are you sure?") { "Delete" }
+    cuy_button(variant: :ghost, href: helpers.polymorphic_path(record)) { "Show" }
+    cuy_button(variant: :ghost, href: helpers.polymorphic_path([ :edit, record ])) { "Edit" }
+    cuy_button(variant: :danger, href: helpers.polymorphic_path(record), method: :delete, confirm: "Are you sure?") { "Delete" }
   end
 end

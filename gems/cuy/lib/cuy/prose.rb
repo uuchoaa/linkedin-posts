@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::Prose < Cuy::Base
+  cuy_helper :cuy_prose
+
   def initialize(size: :sm)
     @size = size
   end

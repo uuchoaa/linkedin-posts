@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Components::Base < Phlex::HTML
+  include Cuy::Helpers
   include Phlex::Rails::Helpers::Routes
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::ButtonTo

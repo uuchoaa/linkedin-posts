@@ -10,8 +10,8 @@ class Components::PostForm < Components::Base
     form_with model: @post, class: "space-y-12" do |form|
       render Components::Rendering::ErrorSummary.new(resource: @post)
 
-      render Cuy::Form::Section.new(title: "Post", description: "Basic post information") do
-        render Cuy::Form::Grid.new(cols: { base: 1, sm: 6 }, gap: { x: 6, y: 8 }) do |grid|
+      cuy_section(title: "Post", description: "Basic post information") do
+        cuy_grid(cols: { base: 1, sm: 6 }, gap: { x: 6, y: 8 }) do |grid|
           grid.column(span: :full) do
             form.label(:external_id, class: LABEL_CLASS)
             form.number_field(:external_id, class: INPUT_CLASS)
@@ -79,7 +79,7 @@ class Components::PostForm < Components::Base
         end
       end
 
-      render Cuy::Form::Actions.new(align: :end, gap: 6) do |actions|
+      cuy_actions(align: :end, gap: 6) do |actions|
         actions.submit(@post.new_record? ? "Create Post" : "Update Post")
       end
     end

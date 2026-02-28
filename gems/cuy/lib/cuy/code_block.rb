@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cuy::CodeBlock < Cuy::Base
+  cuy_helper :cuy_code_block
+
   def initialize(code, collapsible: true)
     @code = code
     @collapsible = collapsible
