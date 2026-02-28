@@ -13,6 +13,6 @@ class Views::Posts::ShowView < Views::Posts::Base
   end
 
   def main_content
-    render Cuy::ModelShow.new(@post)
+    render Cuy::Rails::ModelShow.new(@post)
   end
 end

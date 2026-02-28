@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
-# Load cuy-rails views before first request (fixes Cuy::Rails::IndexView when eager_load=false)
+# Load cuy-rails before first request (fixes load order when eager_load=false)
 require "cuy/rails/base"
 require "cuy/rails/layout"
 require "cuy/rails/navbar"
 require "cuy/rails/page_view"
+require "cuy/rails/field_type"
+require "cuy/rails/field_types/belongs_to"
+require "cuy/rails/model_table"
+require "cuy/rails/model_show"
+require "cuy/rails/model_filter_bar"
+require "cuy/rails/enum_select"
 require "cuy/rails/index_view"
 
 Rails.application.config.to_prepare do
